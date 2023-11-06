@@ -1,3 +1,5 @@
+package Other;
+
 public class RandomStuff {
 
     public static void testStuff() {

@@ -6,12 +6,16 @@ public class Fahrzeug {
     private int anzahlPersonen;
     private int maxZuladung;
     private boolean ahk;
+    private static int anzErzeugterFahrzeuge = 0;
+    private static final int hoechsgeschwindigkeitInnerorts = 50;
+
 
     public Fahrzeug(int fin, int anzahlPersonen, int maxZuladung, boolean ahk) {
         this.fin = fin;
         this.anzahlPersonen = anzahlPersonen;
         this.maxZuladung = maxZuladung;
         this.ahk = ahk;
+        anzErzeugterFahrzeuge++;
     }
 
     public static void fahren() {
@@ -32,6 +36,7 @@ public class Fahrzeug {
         return anzahlPersonen;
     }
     public int setAnzahlPersonen(int anzahlPersonen) {
+        if(anzahlPersonen < 0) anzahlPersonen*=-1;
         this.anzahlPersonen = anzahlPersonen;
         return anzahlPersonen;
     }
@@ -39,6 +44,7 @@ public class Fahrzeug {
         return maxZuladung;
     }
     public int setMaxZuladung(int maxZuladung) {
+        if (maxZuladung < 0) maxZuladung*=-1;
         this.maxZuladung = maxZuladung;
         return maxZuladung;
     }
@@ -50,4 +56,7 @@ public class Fahrzeug {
         return ahk;
     }
 
+    public static int getAnzErzeugterFahrzeuge() {
+        return anzErzeugterFahrzeuge;
+    }
 }

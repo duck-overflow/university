@@ -16,4 +16,16 @@ public class EinfacheMathematik {
         return ggT(a, b-a);
     }
 
+    public static void rekursionDemo(int tiefe) {
+        if(tiefe < 1) {
+            System.out.println("Bin an der Abbruchbedingung angekommen");
+            return;
+        } else {
+            System.out.println("Bin in Methode mit Parameter: " + tiefe + " angekommen und benutze gleich die Methode mit Parameter: " + (tiefe - 1) + ".");
+            rekursionDemo(tiefe - 1);
+            System.out.println("Bin immer noch in Methode mit Parameter: " + tiefe + " und habe die Methode mit Parameter: " + (tiefe - 1) + " begonnen.");
+            return;
+        }
+    }
+
 }
