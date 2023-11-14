@@ -1,10 +1,12 @@
-package helloObjekte;
+package Automobilität;
 
 public class Fahrzeug {
 
     private int fin;
     private int anzahlPersonen;
     private int maxZuladung;
+
+    private Lampe vorderlicht;
     private boolean ahk;
     private static int anzErzeugterFahrzeuge = 0;
     private static final int hoechsgeschwindigkeitInnerorts = 50;
@@ -16,6 +18,7 @@ public class Fahrzeug {
         this.maxZuladung = maxZuladung;
         this.ahk = ahk;
         anzErzeugterFahrzeuge++;
+        vorderlicht = new Lampe();
     }
 
     public static void fahren() {
@@ -23,6 +26,18 @@ public class Fahrzeug {
     }
     public static void hupen() {
         System.out.println("tut, tut");
+    }
+
+    public boolean vorderlichtStatus() {
+        return vorderlicht.getLeuchtet();
+    }
+
+    public void vorderlichtAnschalten() {
+        vorderlicht.anschalten();
+    }
+
+    public void vorderlichtAusschalten() {
+        vorderlicht.ausschalten();
     }
 
     public int getFin() {
@@ -59,4 +74,5 @@ public class Fahrzeug {
     public static int getAnzErzeugterFahrzeuge() {
         return anzErzeugterFahrzeuge;
     }
+
 }

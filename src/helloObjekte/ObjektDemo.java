@@ -1,5 +1,7 @@
 package helloObjekte;
 
+import Automobilität.Fahrzeug;
+
 public class ObjektDemo {
 
     public static void objectDemo() {
@@ -45,4 +47,23 @@ public class ObjektDemo {
             System.out.println();
         }
     }
+
+    public static void parameterÜbergabeTest(Fahrzeug einAuto, int eineZahl) {
+        einAuto.setAnzahlPersonen(eineZahl);
+        eineZahl = 4;
+        einAuto = new Fahrzeug(3, 3, 3, true);
+        return;
+    }
+
+    //Testen ob ein char eine Zahl ist
+    public void wrapperTest() {
+        char acht = '8';
+        char x = 'x';
+        if(Character.isDigit(acht)) {
+            System.out.println("acht ist eine Ziffer");
+        } else {
+            System.out.println("acht ist keine Ziffer");
+        }
+    }
+
 }
