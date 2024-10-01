@@ -1,80 +1,67 @@
 import time
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as mpl
 import numpy as np
 from scipy.optimize import curve_fit
 
 # pip install matplotlib numpy scipy
 
-# Rekursive Methode zur Berechnung der Fibonacci-Zahl
 def fibonacci_recursive(n):
     if n <= 1:
         return n
     else:
         return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
-
-# Iterative Methode zur Berechnung der Fibonacci-Zahl
+    
 def fibonacci_iterative(n):
     a, b = 0, 1
     for _ in range(n):
         a, b = b, a + b
     return a
 
-# Zeitmessung für rekursiven und iterativen Algorithmus
 n_values = range(3, 31)
-recursive_times = []
-iterative_times = []
-recursive_results = []
-iterative_results = []
+recursive_time_list = []
+recursive_result_list = []
+iterative_time_list = []
+iterative_result_list = []
 
 for n in n_values:
-    # Rekursive Berechnung und Zeitmessung
     start_time = time.time()
-    recursive_result = fibonacci_recursive(n)
-    recursive_time = time.time() - start_time
-    recursive_times.append(recursive_time)
-    recursive_results.append(recursive_result)
+    recursive_result_list.append(fibonacci_recursive(n))
+    recursive_time_list.append(time.time() - start_time)
     
-    # Iterative Berechnung und Zeitmessung
     start_time = time.time()
-    iterative_result = fibonacci_iterative(n)
-    iterative_time = time.time() - start_time
-    iterative_times.append(iterative_time)
-    iterative_results.append(iterative_result)
+    iterative_result_list.append(fibonacci_iterative(n))
+    iterative_time_list.append(time.time() - start_time)
 
-# Vergleich der Resultate
-results_match = recursive_results == iterative_results
-print("Ergebnisse stimmen überein:", results_match)
+result_match = recursive_result_list == iterative_result_list
+print("Ergebnisübereinstimmung: ", result_match)
 
-# Grafische Darstellung der Rechenzeiten
-plt.figure(figsize=(10, 6))
-plt.plot(n_values, recursive_times, label='Rekursiv', marker='o')
-plt.plot(n_values, iterative_times, label='Iterativ', marker='s')
-plt.xlabel('n')
-plt.ylabel('Rechenzeit (Sekunden)')
-plt.title('Rechenzeitvergleich der Fibonacci-Berechnung')
-plt.legend()
-plt.grid(True)
-plt.show()
+# Grafik
 
-# Fitten der rekursiven Daten
+mpl.figure(figsize=(10, 6))
+mpl.plot(n_values, recursive_time_list, label="Rekursiv", marker="D")
+mpl.plot(n_values, iterative_time_list, label="Iterativ", marker="o")
+mpl.xlabel("N-Werte")
+mpl.ylabel("Rechenzeit in Sekunden")
+mpl.title("Rechenzeit der Fibonacci-Zahlen")
+mpl.legend()
+mpl.grid(True)
+mpl.show()
+
 def exponential_fit(n, a, b):
     return a * np.exp(b * n)
 
-# Fitten der Rekursionszeiten mit einer exponentiellen Funktion
-params, _ = curve_fit(exponential_fit, list(n_values), recursive_times)
+params, _ = curve_fit(exponential_fit, list(n_values), recursive_time_list)
 
-# Plot der gefitteten Funktion
-fitted_times = [exponential_fit(n, params[0], params[1]) for n in n_values]
+fitted_time_list = [exponential_fit(n, params[0], params[1]) for n in n_values]
 
-plt.figure(figsize=(10, 6))
-plt.plot(n_values, recursive_times, label='Rekursiv (gemessen)', marker='o')
-plt.plot(n_values, fitted_times, label='Rekursiv (gefitte Funktion)', linestyle='--')
-plt.xlabel('n')
-plt.ylabel('Rechenzeit (Sekunden)')
-plt.title('Rekursive Rechenzeit und gefittete Funktion')
-plt.legend()
-plt.grid(True)
-plt.show()
+mpl.figure(figsize=(10, 6))
+mpl.plot(n_values, recursive_time_list, label="Rekursiv-Messung", marker="D")
+mpl.plot(n_values, fitted_time_list, label="Rekursiv (gefitted)", linestyle="--")
+mpl.xlabel("N-Werte")
+mpl.ylabel("Rechenzeit in Sekunden")
+mpl.title("Rekursive Rechenzeiten und gefittete Funktion")
+mpl.legend()
+mpl.grid(True)
+mpl.show()
 
-# Ausgabe der Fit-Parameter
-print("Fit-Parameter (a, b):", params)
+print("Fit-Parameter a & b: ", params)
